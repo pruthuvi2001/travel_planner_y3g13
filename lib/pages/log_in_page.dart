@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'sign_up_page.dart';
@@ -20,19 +21,16 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+
   }
 
-  void _handleSignIn() {
-    // Add your sign-in logic here
-    String email = emailController.text;
-    String password = passwordController.text;
+  void _handleSignIn() async {
 
     // Perform sign-in actions
-    // ...
-
-    // Clear text fields
-    emailController.clear();
-    passwordController.clear();
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
   }
 
   void _navigateToSignUp() {
