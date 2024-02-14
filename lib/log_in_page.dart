@@ -5,7 +5,7 @@ import 'sign_up_page.dart';
 
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key});
+  const LoginPage({super.key,});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   void _navigateToSignUp() {
     // Add navigation logic to the SignUpPage
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => SignUpPage(),
+      builder: (context) => const SignUpPage(),
     ));
   }
 
@@ -46,9 +46,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/signup_bg2.jpg'),
+            image: AssetImage('assets/images/Login_Page/background/bg-gradient-1.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -60,8 +60,8 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 50),
-                    Text(
+                    const SizedBox(height: 150),
+                    const Text(
                       "Travel Planner",
                       style: TextStyle(
                         fontSize: 40,
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.white,
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Your journey starts here!",
                       style: TextStyle(
                         fontSize: 16,
@@ -77,15 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Container(
-                      child: Image.asset(
-                        'assets/images/Travel_planner_logo.png',
-                        width: 150,
-                        height: 150,
-                      ),
+                    const SizedBox(height: 20),
+                    Image.asset(
+                      'assets/images/fox_logo.png',
+                      width: 150,
+                      height: 150,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 40),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: Container(
@@ -99,8 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.only(left: 22.0),
                           child: TextField(
                             controller: emailController,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Email Address',
                               hintStyle: TextStyle(color: Colors.grey),
@@ -109,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: Container(
@@ -124,8 +122,8 @@ class _LoginPageState extends State<LoginPage> {
                           child: TextField(
                             controller: passwordController,
                             obscureText: true,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Password',
                               hintStyle: TextStyle(color: Colors.grey),
@@ -134,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: ElevatedButton(
@@ -145,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(50),
                           ),
                         ),
-                        child: Container(
+                        child: const SizedBox(
                           height: 45,
                           child: Center(
                             child: Text(
@@ -160,12 +158,12 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Not a member?',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
