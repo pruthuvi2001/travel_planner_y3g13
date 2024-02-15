@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'log_in_page.dart';
+import 'pages/log_in_page.dart';
 
 
 
