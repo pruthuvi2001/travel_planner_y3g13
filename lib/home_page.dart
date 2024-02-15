@@ -23,8 +23,8 @@ class _HomePageState extends State<HomePage> {
     String endingPoint = endingPointController.text;
     // Add your search place logic here
     print('Search Places button clicked..');
-    print('starting point: ' + startingPoint);
-    print('ending point: ' + endingPoint);
+    print('starting point: $startingPoint');
+    print('ending point: $endingPoint');
     // Perform search actions
     // ...
 
@@ -73,7 +73,121 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 30),
-
+// Search for Places text
+            Center(
+              child: Text(
+                'Search for Places',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 25),
+// Starting point
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Text(
+                'Starting Point',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                ),
+              ),
+            ),
+            SizedBox(height: 7),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200]?.withOpacity(0.8),
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0, top: 15.0),
+                  child: TextField(
+                    controller: startingPointController,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Starting Point',
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 15),
+// Ending point
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Text(
+                'Destination',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                ),
+              ),
+            ),
+            SizedBox(height: 7),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200]?.withOpacity(0.8),
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0, top: 15.0),
+                  child: TextField(
+                    controller: endingPointController,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Ending Point',
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 25),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: ElevatedButton(
+                onPressed: _searchPlace,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+                child: Container(
+                  height: 45,
+                  child: Center(
+                    child: Text(
+                      'Search Places',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
