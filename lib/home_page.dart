@@ -44,7 +44,8 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 33,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+              ),
               children: [
                 TextSpan(
                   text: ' App',
@@ -54,9 +55,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Container(
-        padding:EdgeInsets.only(left: 20.0, right: 20.0),
+        padding:const EdgeInsets.only(left: 20.0, right: 20.0),
         child: ListView(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 25.0,
             bottom: 20.0,
           ),
@@ -73,8 +74,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(height: 25),
-// Search for Places text
+            const SizedBox(height: 25),
+// Search for Places
             Container(
               height: 350.0,
               decoration: BoxDecoration(
@@ -83,9 +84,10 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: ListView(
-                padding: EdgeInsets.only(top:15.0),
+                padding: const EdgeInsets.only(top:15.0),
                 children: [
-                  Center(
+// Search for Places text
+                  const Center(
                     child: Text(
                       'Search for Places',
                       style: TextStyle(
@@ -95,10 +97,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
 // Starting point
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: Text(
                       'Starting Point',
                       style: TextStyle(
@@ -107,24 +109,24 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 7),
+                  const SizedBox(height: 7),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
                         color: Colors.grey[200]?.withOpacity(0.8),
-                        border: Border(bottom: BorderSide(color: Colors.grey)),
+                        border: const Border(bottom: BorderSide(color: Colors.grey)),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15.0, top: 15.0),
                         child: TextField(
                           controller: startingPointController,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18.0,
                           ),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Starting Point',
                             hintStyle: TextStyle(color: Colors.grey),
@@ -133,10 +135,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
 // Ending point
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
                     child: Text(
                       'Destination',
                       style: TextStyle(
@@ -145,24 +147,24 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 7),
+                  const SizedBox(height: 7),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
                         color: Colors.grey[200]?.withOpacity(0.8),
-                        border: Border(bottom: BorderSide(color: Colors.grey)),
+                        border: const Border(bottom: BorderSide(color: Colors.grey)),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15.0, top: 15.0),
                         child: TextField(
                           controller: endingPointController,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18.0,
                           ),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Ending Point',
                             hintStyle: TextStyle(color: Colors.grey),
@@ -171,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: ElevatedButton(
@@ -182,8 +184,8 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                       ),
-                      child: Container(
-                        height: 45,
+                      child: const SizedBox(
+                        height: 45.0,
                         child: Center(
                           child: Text(
                             'Search Places',
@@ -208,9 +210,9 @@ class _HomePageState extends State<HomePage> {
         iconSize: 20.0,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black,
-        selectedLabelStyle: TextStyle(color: Colors.black, fontSize: 13.0),
-        unselectedLabelStyle: TextStyle(color: Colors.black, fontSize: 13.0),
-        items: [
+        selectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 13.0),
+        unselectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 13.0),
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
