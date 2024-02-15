@@ -40,22 +40,23 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.amber,
         title: const Text.rich(
           TextSpan(
-              text: 'Travel Planner',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 33,
-                  fontWeight: FontWeight.bold,
+            text: 'Travel Planner',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 33,
+              fontWeight: FontWeight.bold,
+            ),
+            children: [
+              TextSpan(
+                text: ' App',
+                style: TextStyle(color: Colors.white),
               ),
-              children: [
-                TextSpan(
-                  text: ' App',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ]),
+            ],
+          ),
         ),
       ),
       body: Container(
-        padding:const EdgeInsets.only(left: 20.0, right: 20.0),
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
         child: ListView(
           padding: const EdgeInsets.only(
             top: 25.0,
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: ListView(
-                padding: const EdgeInsets.only(top:15.0),
+                padding: const EdgeInsets.only(top: 15.0),
                 children: [
 // Search for Places text
                   const Center(
@@ -116,7 +117,8 @@ class _HomePageState extends State<HomePage> {
                       height: 40,
                       decoration: BoxDecoration(
                         color: Colors.grey[200]?.withOpacity(0.8),
-                        border: const Border(bottom: BorderSide(color: Colors.grey)),
+                        border: const Border(
+                            bottom: BorderSide(color: Colors.grey)),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15.0, top: 15.0),
@@ -154,7 +156,8 @@ class _HomePageState extends State<HomePage> {
                       height: 40,
                       decoration: BoxDecoration(
                         color: Colors.grey[200]?.withOpacity(0.8),
-                        border: const Border(bottom: BorderSide(color: Colors.grey)),
+                        border: const Border(
+                            bottom: BorderSide(color: Colors.grey)),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15.0, top: 15.0),
@@ -210,8 +213,10 @@ class _HomePageState extends State<HomePage> {
         iconSize: 20.0,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black,
-        selectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 13.0),
-        unselectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 13.0),
+        selectedLabelStyle:
+            const TextStyle(color: Colors.black, fontSize: 13.0),
+        unselectedLabelStyle:
+            const TextStyle(color: Colors.black, fontSize: 13.0),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
