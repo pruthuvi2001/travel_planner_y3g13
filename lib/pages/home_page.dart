@@ -64,17 +64,7 @@ class _HomePageState extends State<HomePage> {
           ),
           children: [
 // showing the logo as circle
-            Center(
-              child: ClipOval(
-                // Clip to a circular shape
-                child: Image.asset(
-                  'assets/images/login_bg.jpg',
-                  fit: BoxFit.cover,
-                  height: 200.0,
-                  width: 200.0,
-                ),
-              ),
-            ),
+            _buildLogo(),
             const SizedBox(height: 25),
 // Search for Places
             Container(
@@ -100,134 +90,132 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 25),
 // Starting point
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Text(
-                      'Starting Point',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
+                  _buildLabel( 'Starting Point'),
                   const SizedBox(height: 7),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200]?.withOpacity(0.8),
-                        border: const Border(
-                            bottom: BorderSide(color: Colors.grey)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0, top: 15.0),
-                        child: TextField(
-                          controller: startingPointController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18.0,
-                          ),
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Starting Point',
-                            hintStyle: TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
+                  _buildTextField('Starting Point', startingPointController),
+                  const SizedBox(height: 20),
 // Ending point
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Text(
-                      'Destination',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
+                  _buildLabel('Destination'),
                   const SizedBox(height: 7),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200]?.withOpacity(0.8),
-                        border: const Border(
-                            bottom: BorderSide(color: Colors.grey)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0, top: 15.0),
-                        child: TextField(
-                          controller: endingPointController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18.0,
-                          ),
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Ending Point',
-                            hintStyle: TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  _buildTextField('Ending Point', endingPointController),
                   const SizedBox(height: 25),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                    child: ElevatedButton(
-                      onPressed: _searchPlace,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                      child: const SizedBox(
-                        height: 45.0,
-                        child: Center(
-                          child: Text(
-                            'Search Places',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+// Search button
+                  _buildSearchButton(),
                 ],
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        iconSize: 20.0,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black,
-        selectedLabelStyle:
-            const TextStyle(color: Colors.black, fontSize: 13.0),
-        unselectedLabelStyle:
-            const TextStyle(color: Colors.black, fontSize: 13.0),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+// showing the logo as circle
+  Widget _buildLogo(){
+    return Center(
+      child: ClipOval(
+        // Clip to a circular shape
+        child: Image.asset(
+          'assets/images/login_bg.jpg',
+          fit: BoxFit.cover,
+          height: 200.0,
+          width: 200.0,
+        ),
       ),
+    );
+  }
+// build label
+  Widget _buildLabel(String labelText){
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      child: Text(
+        labelText,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 18.0,
+        ),
+      ),
+    );
+  }
+// build text field
+  Widget _buildTextField(String hintText, TextEditingController controller){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+          color: Colors.grey[200]?.withOpacity(0.8),
+          border: const Border(
+              bottom: BorderSide(color: Colors.grey)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15.0, top: 15.0),
+          child: TextField(
+            controller: controller,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 18.0,
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+              hintStyle: TextStyle(color: Colors.grey),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+// build search button
+  Widget _buildSearchButton(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      child: ElevatedButton(
+        onPressed: _searchPlace,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.amber,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        child: const SizedBox(
+          height: 45.0,
+          child: Center(
+            child: Text(
+              'Search Places',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+// build bottom navigation  bar
+  Widget _buildBottomNavigationBar(){
+    return BottomNavigationBar(
+      backgroundColor: Colors.white,
+      iconSize: 20.0,
+      selectedItemColor: Colors.black,
+      unselectedItemColor: Colors.black,
+      selectedLabelStyle:
+      const TextStyle(color: Colors.black, fontSize: 13.0),
+      unselectedLabelStyle:
+      const TextStyle(color: Colors.black, fontSize: 13.0),
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }
