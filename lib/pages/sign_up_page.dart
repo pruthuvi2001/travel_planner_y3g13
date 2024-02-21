@@ -1,68 +1,93 @@
 import 'package:flutter/material.dart';
-import 'package:travel_planner_y3g13/Pages/log_in_page.dart';
-
-
+import 'log_in_page.dart';
+import 'ui_background_design.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key,});
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  late TextEditingController usernameController;
   late TextEditingController emailController;
   late TextEditingController passwordController;
-  late TextEditingController usernameController;
-  late TextEditingController fullNameController;
+  late TextEditingController reEnterPasswordController;
 
   @override
   void initState() {
     super.initState();
+    usernameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
-    usernameController = TextEditingController();
-    fullNameController = TextEditingController();
+    reEnterPasswordController = TextEditingController();
   }
 
-  void _handleSignUp() {
+  void _handleSignUp() async{
     // Add your sign-up logic here
-    String email = emailController.text;
-    String password = passwordController.text;
-    String username = usernameController.text;
-    String fullName = fullNameController.text;
+    String username = usernameController.text.trim();
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+    String reEnterPassword = reEnterPasswordController.text;
 
     // Perform sign-up actions
+
+    // Function to create a new user account
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // User created successfully
+      print('User signed up successfully');
+      // Navigate to the next screen or perform other actions
+    } catch (e) {
+      // Handle sign-up errors
+      print('Sign up failed: $e');
+      // You can show an error message to the user
+    }
     // ...
 
     // Clear text fields
+    usernameController.clear();
     emailController.clear();
     passwordController.clear();
-    usernameController.clear();
-    fullNameController.clear();
+    reEnterPasswordController.clear();
   }
 
   void _navigateToSignIn() {
-    //navigation to the SignInPage
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => const LoginPage(),
-    ));
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 300),
+        pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(-1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          );
+        },
+      ),
+    );
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [ Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/Login_Page/background/bg-gradient-1.jpg'),
-              fit: BoxFit.cover,
-            ),
+        children: [
+          Positioned.fill(
+            child: OvalBackground(color: Colors.amber.shade400),
           ),
-          child: SafeArea(
+          SafeArea(
             child: ListView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               children: [
@@ -86,113 +111,26 @@ class _SignUpPageState extends State<SignUpPage> {
                         height: 150,
                       ),
                       const SizedBox(height: 50),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200]?.withOpacity(0.8),
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 22.0),
-                            child: TextField(
-                              controller: emailController,
-                              style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Email Address',
-                                hintStyle: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      buildTextField(usernameController, "Enter your username"),
                       const SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200]?.withOpacity(0.8),
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 22.0),
-                            child: TextField(
-                              controller: passwordController,
-                              obscureText: true,
-                              style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Password',
-                                hintStyle: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      buildTextField(emailController, "Enter your email"),
+                      const SizedBox(height: 40),
+                      buildTextField(passwordController, "Enter your password", isObscure: true),
                       const SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200]?.withOpacity(0.8),
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 22.0),
-                            child: TextField(
-                              controller: usernameController,
-                              style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Username',
-                                hintStyle: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200]?.withOpacity(0.8),
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 22.0),
-                            child: TextField(
-                              controller: fullNameController,
-                              style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Full Name',
-                                hintStyle: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 50),
+                      buildTextField(reEnterPasswordController, "Re-enter your password", isObscure: true),
+                      const SizedBox(height: 30),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40.0),
                         child: ElevatedButton(
                           onPressed: _handleSignUp,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue[600],
+                            backgroundColor: Color(0xFFFF8C00),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
                             ),
                           ),
+
+
                           child: const SizedBox(
                             height: 45,
                             child: Center(
@@ -208,6 +146,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
+
+
+
                       const SizedBox(height: 25),
                       Center(
                         child: Row(
@@ -217,7 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               'Already a member?',
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.white,
+                                color: Color(0xFF333333),
                               ),
                             ),
                             TextButton(
@@ -225,8 +166,8 @@ class _SignUpPageState extends State<SignUpPage> {
                               child: Text(
                                 'Sign In.',
                                 style: TextStyle(
-                                  color: Colors.cyan[200],
-                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFFFF8C00),
+                                  fontWeight: FontWeight.w900,
                                 ),
                               ),
                             ),
@@ -239,9 +180,43 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
           ),
-        ),],
+        ],
+      ),
+    );
+  }
+
+  Widget buildTextField(TextEditingController controller, String hintText, {bool isObscure = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+          color: Colors.grey[200]?.withOpacity(0.8),
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 22.0),
+          child: TextField(
+            controller: controller,
+            obscureText: isObscure,
+            style: const TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+              hintStyle: const TextStyle(color: Colors.grey),
+            ),
+          ),
+        ),
       ),
     );
   }
 }
+
+
+
+
+
+
+
 

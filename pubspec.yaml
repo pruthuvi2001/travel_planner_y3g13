@@ -38,6 +38,7 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -47,7 +48,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -65,10 +66,6 @@ flutter:
     - assets/images/login_bg.jpg
     - assets/images/signup_bg2.jpg
     - assets/images/fox_logo.png
-    - assets/images/Login_Page/background/bg-gradient-1.jpg
-    - assets/images/Login_Page/background/bg-gradient-2.jpg
-    - assets/images/Login_Page/background/bg-gradient-3.jpg
-    - assets/images/Login_Page/background/bg-gradient-4.jpg
 
 
 
