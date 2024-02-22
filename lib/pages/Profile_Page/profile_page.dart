@@ -3,11 +3,11 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.amber,
         leading: IconButton(
             onPressed: () {}, icon: const Icon(LineAwesomeIcons.angle_left)),
         title:
@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFF8C00),
+                      backgroundColor: Colors.amber,
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -67,6 +67,26 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        iconSize: 20.0,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.amber,
+        selectedLabelStyle:
+        const TextStyle(color: Colors.black, fontSize: 13.0),
+        unselectedLabelStyle:
+        const TextStyle(color: Colors.amber, fontSize: 13.0),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }
