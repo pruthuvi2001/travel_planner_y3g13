@@ -38,6 +38,15 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
 
+
+  #ICON PACKAGES
+  line_awesome_flutter: ^2.0.0
+  font_awesome_flutter: ^9.0.0
+
+  
+  #google fonts
+  google_fonts:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -68,7 +77,7 @@ flutter:
     - assets/images/Login_Page/background/bg-gradient-1.jpg
     - assets/images/Login_Page/background/bg-gradient-2.jpg
     - assets/images/Login_Page/background/bg-gradient-3.jpg
-    - assets/images/Login_Page/background/bg-gradient-4.jpg
+    - assets/images/profile_page/profile_photo.jpg
 
 
 
