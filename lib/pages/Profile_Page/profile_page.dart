@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
+import 'change_password.dart';
+import 'edit_profile.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
   @override
@@ -36,7 +39,9 @@ class ProfilePage extends StatelessWidget {
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => {
+                    Navigator.push(context,MaterialPageRoute(builder:(context) => const EditProfilePage()))
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber,
                       side: BorderSide.none,
@@ -53,7 +58,9 @@ class ProfilePage extends StatelessWidget {
               ProfileMenuWidget(
                   title: "Change Password",
                   icon: LineAwesomeIcons.cog,
-                  onPress: () {}),
+                  onPress: () => {
+                    Navigator.push(context,MaterialPageRoute(builder:(context) => const ChangePasswordPage()))
+                  }),
               ProfileMenuWidget(
                   title: "Activate Alarm", icon: Icons.alarm, onPress: () {}),
               const Divider(),
@@ -63,7 +70,9 @@ class ProfilePage extends StatelessWidget {
                   icon: LineAwesomeIcons.alternate_sign_out,
                   textColor: Colors.red,
                   endIcon: false,
-                  onPress: () {}),
+                  onPress: () => {
+                    Navigator.push(context,MaterialPageRoute(builder:(context) => const ChangePasswordPage()))
+                  }),
             ],
           ),
         ),
