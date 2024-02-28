@@ -64,23 +64,38 @@ class EditProfilePage extends StatelessWidget {
                         label: Text("Full Name"),
                         prefixIcon: Icon(LineAwesomeIcons.user)),
                   ),
-                  const SizedBox(height: -20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     decoration: const InputDecoration(
                         label: Text("E Mail"),
                         prefixIcon: Icon(LineAwesomeIcons.envelope_1)),
                   ),
-                  const SizedBox(height: -20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     decoration: const InputDecoration(
                         label: Text("Password"),
                         prefixIcon: Icon(LineAwesomeIcons.fingerprint)),
                   ),
-                  const SizedBox(height: -20),
+                  const SizedBox(height: 20),
                 ],
               )),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => {},
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.amber,
+                      side: BorderSide.none,
+                      shape: const StadiumBorder()),
+                  child: Text("Update Profile",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ),
+              ),
             ],
+
           ),
+
         ),
       ),
     );

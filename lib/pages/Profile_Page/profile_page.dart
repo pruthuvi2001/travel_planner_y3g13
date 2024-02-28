@@ -21,17 +21,37 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              SizedBox(
-                width: 120,
-                height: 120,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: const Image(
-                        image: AssetImage(
-                            "assets/images/profile_page/profile_photo.jpg"))),
+              Stack(
+                children: [
+                  SizedBox(
+                    width: 120,
+                    height: 120,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: const Image(
+                            image: AssetImage(
+                                "assets/images/profile_page/profile_photo.jpg"))),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      width: 35,
+                      height: 35,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.amber),
+                      child: const Icon(
+                        LineAwesomeIcons.alternate_pencil,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                    ),
+                  )
+                ],
               ),
               const SizedBox(height: 10),
-              Text("Travel Planner User",
+              Text("User_Name",
                   style: Theme.of(context).textTheme.headlineMedium),
               Text("travelpanner@gmail.com",
                   style: Theme.of(context).textTheme.bodyMedium),
