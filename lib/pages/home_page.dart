@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_bottom_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late TextEditingController startingPointController;
   late TextEditingController endingPointController;
+  final int _selectedIndex = 0; // Index for the home page
 
   @override
   void initState() {
@@ -33,6 +35,16 @@ class _HomePageState extends State<HomePage> {
     endingPointController.clear();
   }
 
+  void _navigatePage(int pageIndex){
+    if(pageIndex==1) {
+      //navigation to the profile page
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,15 +52,15 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.amber,
         title: const Text.rich(
           TextSpan(
-            text: 'Travel Planner',
+            text: 'Travel',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 33,
+              fontSize: 30,
               fontWeight: FontWeight.bold,
             ),
             children: [
               TextSpan(
-                text: ' App',
+                text: ' Planner',
                 style: TextStyle(color: Colors.white),
               ),
             ],
@@ -63,19 +75,20 @@ class _HomePageState extends State<HomePage> {
             bottom: 20.0,
           ),
           children: [
+            const SizedBox(height: 20),
 // showing the logo as circle
             _buildLogo(),
-            const SizedBox(height: 25),
+            const SizedBox(height: 45),
 // Search for Places
             Container(
-              height: 350.0,
+              height: 370.0,
               decoration: BoxDecoration(
                 color: Colors.grey[200]?.withOpacity(0.8),
                 border: Border.all(color: Colors.white),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: ListView(
-                padding: const EdgeInsets.only(top: 15.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 children: [
 // Search for Places text
                   const Center(
@@ -83,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                       'Search for Places',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 30.0,
+                        fontSize: 27.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -91,14 +104,14 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 25),
 // Starting point
                   _buildLabel( 'Starting Point'),
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 5),
                   _buildTextField('Starting Point', startingPointController),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
 // Ending point
                   _buildLabel('Destination'),
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 5),
                   _buildTextField('Ending Point', endingPointController),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 30),
 // Search button
                   _buildSearchButton(),
                 ],
@@ -107,7 +120,10 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+      bottomNavigationBar: AppBottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _navigatePage,
+      ),
     );
   }
 
@@ -119,8 +135,8 @@ class _HomePageState extends State<HomePage> {
         child: Image.asset(
           'assets/images/login_bg.jpg',
           fit: BoxFit.cover,
-          height: 200.0,
-          width: 200.0,
+          height: 170.0,
+          width: 170.0,
         ),
       ),
     );
@@ -128,12 +144,13 @@ class _HomePageState extends State<HomePage> {
 // build label
   Widget _buildLabel(String labelText){
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Text(
         labelText,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
           fontSize: 18.0,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
@@ -155,12 +172,12 @@ class _HomePageState extends State<HomePage> {
             controller: controller,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 18.0,
+              fontSize: 17.0,
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: hintText,
-              hintStyle: TextStyle(color: Colors.grey),
+              hintStyle: const TextStyle(color: Colors.grey),
             ),
           ),
         ),
@@ -193,29 +210,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-    );
-  }
-// build bottom navigation  bar
-  Widget _buildBottomNavigationBar(){
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      iconSize: 20.0,
-      selectedItemColor: Colors.black,
-      unselectedItemColor: Colors.black,
-      selectedLabelStyle:
-      const TextStyle(color: Colors.black, fontSize: 13.0),
-      unselectedLabelStyle:
-      const TextStyle(color: Colors.black, fontSize: 13.0),
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-      ],
     );
   }
 }
