@@ -39,7 +39,6 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late TextEditingController reEnterPasswordController;
-  bool passwordsMatch = true;
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -52,7 +51,7 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
     reEnterPasswordController = TextEditingController();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
   }
@@ -82,17 +81,39 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
     String password = passwordController.text.trim();
     String reEnterPassword = reEnterPasswordController.text.trim();
 
+    // Validate for null values
+    if (username.isEmpty || email.isEmpty || password.isEmpty || reEnterPassword.isEmpty) {
+      _showErrorDialog('Please fill in all fields.');
+      return;
+    }
+
+    // Validate email format
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+      _showErrorDialog('Please enter a valid email address.');
+      return;
+    }
+
     // Validate minimum password length
     if (password.length < 6) {
       _showErrorDialog('Password should be at least 6 characters long.');
       return;
     }
 
-    // Validate password match only if both passwords are entered
-    if (password.isNotEmpty && reEnterPassword.isNotEmpty && password != reEnterPassword) {
+    // Validate password match
+    if (password != reEnterPassword) {
       _showErrorDialog('Passwords do not match.');
       return;
     }
+
+    // If all validations pass, proceed with sign up
+    _performSignUp();
+  }
+
+  Future<void> _performSignUp() async {
+    String username = usernameController.text.trim();
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+    String reEnterPassword = reEnterPasswordController.text.trim();
 
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -129,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
   void _navigateToSignIn() {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 300),
+        transitionDuration: const Duration(milliseconds: 50),
         pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
@@ -148,146 +169,134 @@ class _SignUpPageState extends State<SignUpPage> with TickerProviderStateMixin {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) {
-            return Transform.scale(
-              scale: _animation.value,
-              child: Opacity(
-                opacity: _animation.value,
-                child: AlertDialog(
-                  title: const Text('Error'),
-                  content: Text(message),
-                  actions: [
-                    TextButton(
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Error',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      message,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFFFFFFED),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
                       onPressed: () {
-                        _controller.reverse();
                         passwordController.clear();
                         reEnterPasswordController.clear();
                         Navigator.of(context).pop();
                       },
-                      child: const Text('OK'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFFF8C00),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        'Try Again',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-            );
-          },
+            ],
+          ),
         );
       },
     );
-    _controller.forward();
   }
+
 
   void _showRegistrationSuccessDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) {
-            return Transform.scale(
-              scale: _animation.value,
-              child: Opacity(
-                opacity: _animation.value,
-                child: Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(
-                          top: 50,
-                          bottom: 20,
-                          left: 20,
-                          right: 20,
-                        ),
-                        margin: const EdgeInsets.only(top: 50),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.rectangle,
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Congratulations!',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      'You have successfully registered.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFFFFFFED),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _navigateToSignIn();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF4CAF50),
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            const BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 10.0,
-                              offset: Offset(0.0, 10.0),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Text(
-                              'Congratulations!',
-                              style: TextStyle(
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            const Text(
-                              'You have successfully registered.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(height: 24.0),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                                _navigateToSignIn();
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: double.infinity,
-                                padding: const EdgeInsets.symmetric(vertical: 12),
-                                decoration: BoxDecoration(
-                                  color: Colors.lightGreen[600],
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: const Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
-                      Positioned(
-                        top: 0,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.lightGreen[800],
-                          radius: 50,
-                          child: const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 50,
-                          ),
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            );
-          },
+            ],
+          ),
         );
       },
     );
-    _controller.forward();
   }
+
 
   @override
   Widget build(BuildContext context) {

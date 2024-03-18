@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'forgot_password_page.dart';
@@ -24,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     passwordController = TextEditingController();
   }
 
-  void _handleSignIn() async {
+  Future<void> _handleSignIn() async {
     if (_formKey.currentState!.validate()) {
       try {
         // Perform sign-in actions
@@ -34,11 +36,15 @@ class _LoginPageState extends State<LoginPage> {
         );
         // Sign in successful
         print('Login successful!');
-
+        // Navigate to home page
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
       } catch (e) {
         print('Login failed: $e');
         // Handle login failure
-        _showErrorDialog('Login failed. Please try again.');
+        _showErrorDialog('Login failed.');
       }
     }
   }
@@ -46,18 +52,15 @@ class _LoginPageState extends State<LoginPage> {
   void _navigateToSignUp() {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        transitionDuration: Duration(milliseconds: 300),
-        pageBuilder: (context, animation, secondaryAnimation) => SignUpPage(),
+        transitionDuration: const Duration(milliseconds: 50),
+        pageBuilder: (context, animation, secondaryAnimation) => const SignUpPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: Tween<Offset>(
-              begin: const Offset(1.0, 0.0),
+              begin: const Offset(-1.0, 0.0),
               end: Offset.zero,
             ).animate(animation),
-            child: FadeTransition(
-              opacity: animation,
-              child: child,
-            ),
+            child: child,
           );
         },
       ),
@@ -68,29 +71,72 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Invalid Credentials!'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              Text(message),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: _navigateToForgotPassword,
-                child: Text('Forgot Password?'),
+              Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Hey! Invalid Credentials!',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      message,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFFFFFFED),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    TextButton(
+                      onPressed: _navigateToForgotPassword,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Color(0xD5000000),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        emailController.clear();
+                        passwordController.clear();
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFFF8C00),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                          style:TextStyle(
+                            color: Colors.white,
+                          ) ,
+                          'Try Again'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                emailController.clear();
-                passwordController.clear();
-                Navigator.of(context).pop();
-              },
-              child: Text('Try Again'),
-            ),
-          ],
         );
       },
     );
@@ -107,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Your existing UI code for the sign-in page
       body: Stack(
         children: [
           Positioned.fill(
@@ -149,10 +196,14 @@ class _LoginPageState extends State<LoginPage> {
                             height: 150,
                           ),
                           const SizedBox(height: 40),
-                          buildTextField("Email Address", emailController,
+                          buildTextField(
+                              "Email Address",
+                              emailController,
                               "Enter your email"),
                           const SizedBox(height: 20),
-                          buildTextField("Password", passwordController,
+                          buildTextField(
+                              "Password",
+                              passwordController,
                               "Enter your password",
                               isPassword: true),
                           const SizedBox(height: 20),
@@ -162,7 +213,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: ElevatedButton(
                               onPressed: _handleSignIn,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFFF8C00),
+                                backgroundColor:
+                                const Color(0xFFFF8C00),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
                                 ),
@@ -220,7 +272,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget buildTextField(String label, TextEditingController controller, String hintText,
+  Widget buildTextField(String label, TextEditingController controller,
+      String hintText,
       {bool isPassword = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -250,7 +303,8 @@ class _LoginPageState extends State<LoginPage> {
                 style: const TextStyle(color: Colors.black),
                 obscureText: isPassword,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  // Remove or modify this condition as per your requirement
+                  if (value == null) {
                     return 'Please enter some text';
                   }
                   return null;
