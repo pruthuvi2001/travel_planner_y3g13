@@ -1,30 +1,35 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_planner_y3g13/pages/auth_page.dart';
+import 'package:travel_planner_y3g13/pages/landing_page.dart';
+import 'firebase_options.dart';
 
-import 'log_in_page.dart';
+Future<void> main() async {
 
+  WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize Firebase with default options
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-
-void main() {
+  // Run the app
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Travel_Planner',
+      title: 'Travel Planner',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: LandingPage(),
     );
   }
 }
-
-
