@@ -60,7 +60,7 @@ class ProfilePage extends StatelessWidget {
                 width: 200,
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.push(context,MaterialPageRoute(builder:(context) => const EditProfilePage()))
+                    Navigator.push(context,MaterialPageRoute(builder:(context) => const ChangePasswordPage()))
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber,

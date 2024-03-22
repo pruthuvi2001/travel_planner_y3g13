@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'ui_background_design.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+  const ForgotPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
