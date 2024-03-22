@@ -214,9 +214,9 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black,
         selectedLabelStyle:
-            const TextStyle(color: Colors.black, fontSize: 13.0),
+        const TextStyle(color: Colors.black, fontSize: 13.0),
         unselectedLabelStyle:
-            const TextStyle(color: Colors.black, fontSize: 13.0),
+        const TextStyle(color: Colors.black, fontSize: 13.0),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
