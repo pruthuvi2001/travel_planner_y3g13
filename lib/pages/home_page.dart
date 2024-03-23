@@ -29,6 +29,18 @@ class _HomePageState extends State<HomePage> {
     endingPointController = TextEditingController();
   }
 
+
+//to navigate through pages
+  void _navigatePage(int pageIndex){
+    if(pageIndex==1) {
+      //navigation to the profile page
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+      );
+    }
+  }
+
 //to search places
   Future<void> _searchPlace() async {
     startingPoint = startingPointController.text;
@@ -61,17 +73,6 @@ class _HomePageState extends State<HomePage> {
       },
     );
     await getCoordinates(startingPoint, endingPoint);
-  }
-
-//to navigate through pages
-  void _navigatePage(int pageIndex){
-    if(pageIndex==1) {
-      //navigation to the profile page
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const HomePage(),
-      ),
-      );
-    }
   }
 
 //to get the coordinates using tomtom api
