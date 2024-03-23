@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   static const String _apiKey = 'BG52qlOwM5RN8bpA3AVHatJ5gr7ZCwlA';
-  static const String _gApiKey = "your_Api_key";
+  static const String _gApiKey = "AIzaSyDWB51jaP0hejLx20yD1CmNKAdACCBqIAA";
   final String country = 'Sri Lanka';
   late TextEditingController startingPointController;
   late TextEditingController endingPointController;
