@@ -19,6 +19,8 @@ class _HomePageState extends State<HomePage> {
   late TextEditingController endingPointController;
   final int _selectedIndex = 0; // Index for the home page
   late List<Map<String, dynamic>> poiList;
+  late String startingPoint;
+  late String endingPoint;
 
   @override
   void initState() {
@@ -29,8 +31,8 @@ class _HomePageState extends State<HomePage> {
 
 //to search places
   Future<void> _searchPlace() async {
-    String startingPoint = startingPointController.text;
-    String endingPoint = endingPointController.text;
+    startingPoint = startingPointController.text;
+    endingPoint = endingPointController.text;
 // loading page
     showDialog(
       context: context,
@@ -155,7 +157,7 @@ class _HomePageState extends State<HomePage> {
         endingPointController.clear();
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => LocationList(placesList: poiList),
+          builder: (context) => LocationList(placesList: poiList, startingPoint: startingPoint, endingPoint: endingPoint,),
           ),
         );
 
