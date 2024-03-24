@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_planner_y3g13/pages/home_page.dart';
+import 'package:travel_planner_y3g13/pages/map_page.dart';
 
 class LocationList extends StatefulWidget {
   final List<Map<String, dynamic>> placesList;
@@ -98,6 +99,9 @@ class _LocationListState extends State<LocationList> {
                 // Navigate to the Maps page
                 print('View in Map button clicked!');
                 print(selectedLocations.toString());
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => MapPage(placesList: selectedLocations, startingPoint: widget.startingPoint, endingPoint: widget.endingPoint),
+                ));
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
