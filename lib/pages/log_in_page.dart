@@ -1,52 +1,42 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'log_in_page.dart';
+import 'sign_up_page.dart';
 
 
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key,});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginPageState extends State<LoginPage> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
-  late TextEditingController usernameController;
-  late TextEditingController fullNameController;
 
   @override
   void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
-    usernameController = TextEditingController();
-    fullNameController = TextEditingController();
+
   }
 
-  void _handleSignUp() {
-    // Add your sign-up logic here
-    String email = emailController.text;
-    String password = passwordController.text;
-    String username = usernameController.text;
-    String fullName = fullNameController.text;
+  void _handleSignIn() async {
 
-    // Perform sign-up actions
-    // ...
-
-    // Clear text fields
-    emailController.clear();
-    passwordController.clear();
-    usernameController.clear();
-    fullNameController.clear();
+    // Perform sign-in actions
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
   }
 
-  void _navigateToSignIn() {
-    // Add navigation logic to the SignInPage
+  void _navigateToSignUp() {
+    // Add navigation logic to the SignUpPage
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => LoginPage(),
+      builder: (context) => const SignUpPage(),
     ));
   }
 
@@ -54,9 +44,9 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/login_bg.jpg'), // Replace with your signup background image
+            image: AssetImage('assets/images/Login_Page/background/bg-gradient-1.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -68,24 +58,30 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 50),
-                    Text(
-                      "Create Account",
+                    const SizedBox(height: 150),
+                    const Text(
+                      "Travel Planner",
                       style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.w800,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Container(
-                      child: Image.asset(
-                        'assets/images/Travel_planner_logo.png', // Replace with your logo image
-                        width: 200,
-                        height: 200,
+                    const Text(
+                      "Your journey starts here!",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
+                    Image.asset(
+                      'assets/images/fox_logo.png',
+                      width: 150,
+                      height: 150,
+                    ),
+                    const SizedBox(height: 40),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: Container(
@@ -99,8 +95,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           padding: const EdgeInsets.only(left: 22.0),
                           child: TextField(
                             controller: emailController,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Email Address',
                               hintStyle: TextStyle(color: Colors.grey),
@@ -109,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: Container(
@@ -124,8 +120,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: TextField(
                             controller: passwordController,
                             obscureText: true,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Password',
                               hintStyle: TextStyle(color: Colors.grey),
@@ -134,70 +130,24 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 12),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200]?.withOpacity(0.8),
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 22.0),
-                          child: TextField(
-                            controller: usernameController,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Username',
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 12),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200]?.withOpacity(0.8),
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 22.0),
-                          child: TextField(
-                            controller: fullNameController,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Full Name',
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
+
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: ElevatedButton(
-                        onPressed: _handleSignUp,
+                        onPressed: _handleSignIn,
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blue[600],
+                          backgroundColor: Colors.blue[600],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
                         ),
-                        child: Container(
+                        child: const SizedBox(
                           height: 45,
                           child: Center(
                             child: Text(
-                              'Sign Up',
+                              'Sign In',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -208,22 +158,24 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25),
+
+
+                    const SizedBox(height: 25),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Already a member?',
+                          const Text(
+                            'Not a member?',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
                           ),
                           TextButton(
-                            onPressed: _navigateToSignIn,
+                            onPressed: _navigateToSignUp,
                             child: Text(
-                              'Sign In.',
+                              'Sign Up Now.',
                               style: TextStyle(
                                 color: Colors.cyan[200],
                                 fontWeight: FontWeight.w700,
@@ -243,4 +195,3 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
-
