@@ -18,12 +18,22 @@ class _LocationListState extends State<LocationList> {
   @override
   void initState() {
     super.initState();
-    // Initialize selectedLocations with widget.placesList
-    selectedLocations = List<Map<String, dynamic>>.from(widget.placesList);
+    // Initialize selectedLocations with an empty list
+    selectedLocations = [];
   }
 
   bool isSelected(Map<String, dynamic> location) {
     return selectedLocations.contains(location);
+  }
+
+  void addOrRemoveLocation(Map<String, dynamic> location) {
+    setState(() {
+      if (isSelected(location)) {
+        selectedLocations.removeWhere((element) => element['name'] == location['name']); // Remove the location from selectedLocations based on its name
+      } else {
+        selectedLocations.add(location); // Add the location's data to selectedLocations
+      }
+    });
   }
 
   @override
@@ -59,13 +69,7 @@ class _LocationListState extends State<LocationList> {
                 title: Text(location['name'] ?? ''),
                 trailing: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      if (isSelected(location)) {
-                        selectedLocations.remove(location);
-                      } else {
-                        selectedLocations.add(location);
-                      }
-                    });
+                    addOrRemoveLocation(location);
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -73,11 +77,11 @@ class _LocationListState extends State<LocationList> {
                     ),
                   ),
                   child: Text(
-                    isSelected(location) ? 'Add' : 'Remove',
+                    isSelected(location) ? 'Remove' : 'Add',
                     style: TextStyle(
                       color: isSelected(location)
                           ? Colors.white
-                          : Color(0xFFFF8C00),
+                          : const Color(0xFFFF8C00),
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
@@ -92,14 +96,20 @@ class _LocationListState extends State<LocationList> {
             child: ElevatedButton(
               onPressed: () {
                 // Navigate to the Maps page
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => MapsPage()));
-                // Replace the above line with actual navigation code when the Maps page is available.
-                print('View in Maps button clicked!');
+                print('View in Map button clicked!');
+                print(selectedLocations.toString());
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
               ),
-              child: Text('View in Maps'),
+              child: const Text(
+                'View in Map',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
             ),
           ),
           Positioned(
@@ -108,19 +118,17 @@ class _LocationListState extends State<LocationList> {
             child: ElevatedButton(
               onPressed: () {
                 // Go back to the previous page
-                // Navigator.pop(context);
+                print('Go Back button clicked!');
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const HomePage(),
                 ));
-                // Replace the above line with actual navigation code to go back when available.
-                print('Go Back button clicked!');
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Color(0xFFFF8C00),
+                  Colors.amber,
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Go Back',
                 style: TextStyle(
                   color: Colors.white,
