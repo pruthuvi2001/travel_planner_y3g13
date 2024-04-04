@@ -109,7 +109,9 @@ class ProfilePage extends StatelessWidget {
                   textColor: Colors.red,
                   endIcon: false,
                   onPress: () => {
-                    Navigator.push(context,MaterialPageRoute(builder:(context) => const LoginPage()))
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginPage(),
+                  ),
+                  ),
                   }),
             ],
           ),
