@@ -18,12 +18,12 @@ class AuthPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData) {
-            // If user is not logged in, navigate to login page
-            return const LoginPage();
+            // If user is not logged in, navigate to home page
+            return const HomePage();
 
           } else {
-            // If user is logged in, navigate to home page
-            return const HomePage();
+            // If user is logged in, navigate to login page
+            return const LoginPage();
           }
         },
       ),
