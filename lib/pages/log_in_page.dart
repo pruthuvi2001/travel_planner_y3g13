@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         // Navigate to home page
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => const HomePage()),
         );
       } catch (e) {
         print('Login failed: $e');
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
             alignment: Alignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(20),
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
+                    const Text(
                       'Hey! Invalid Credentials!',
                       style: TextStyle(
                         fontSize: 20,
@@ -94,26 +94,26 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Text(
                       message,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 15,
                         color: Color(0xFFFFFFED),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextButton(
                       onPressed: _navigateToForgotPassword,
-                      child: Text(
+                      child: const Text(
                         'Forgot Password?',
                         style: TextStyle(
                           color: Color(0xD5000000),
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
                         emailController.clear();
@@ -121,12 +121,12 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFF8C00),
+                        backgroundColor: const Color(0xFFFF8C00),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                           style:TextStyle(
                             color: Colors.white,
                           ) ,
@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
   void _navigateToForgotPassword() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ForgotPasswordPage(),
+        builder: (context) => const ForgotPasswordPage(),
       ),
     );
   }
