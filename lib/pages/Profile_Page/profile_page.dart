@@ -26,8 +26,7 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Colors.amber,
         // leading: IconButton(
         //     onPressed: () {}, icon: const Icon(LineAwesomeIcons.angle_left)),
-        title:
-        const Text("Profile",
+        title:const Text("Profile",
           style: TextStyle(
           color: Colors.black,
           fontSize: 30,
